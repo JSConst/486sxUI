@@ -1,0 +1,19 @@
+@font-face {
+    font-family: "Led Screen Gtamblog";
+    src:
+        local("LedScreenGtamblogCaps20Regular.ttf"),
+        url("./assets/fonts/LedScreenGtamblogCaps20Regular.ttf")
+            format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+html {
+    font-family: "Led Screen Gtamblog";
+    overflow-y: scroll;
+}
+
+body {
+    min-width: 840px;
+    min-height: calc(100vh-8rem);
+}
