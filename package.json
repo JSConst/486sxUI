@@ -5,11 +5,11 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build",
+        "build": "vite build --base=/486sxUI/",
         "preview": "vite preview",
         "check": "svelte-check --tsconfig ./tsconfig.json",
         "format": "clear && eslint --ext .ts,.svelte src --fix && prettier --write  --plugin prettier-plugin-svelte .",
-	"deploy": "gh-pages -d dist"
+        "deploy": "gh-pages -d dist"
     },
     "devDependencies": {
         "@mdi/js": "^7.3.67",

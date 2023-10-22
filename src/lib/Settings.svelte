@@ -21,11 +21,9 @@
             JSON.stringify({
                 ctrls: $settings.ctrls,
                 cors: $settings.cors,
-                nModem: $settings.nModem,
                 corsServer: $settings.corsServer,
+                nModem: $settings.nModem,
                 nMServer: $settings.nMServer,
-                corsWorker: $settings.corsWorker,
-                corsWorklet: $settings.corsWorklet,
             })
         );
         alert("Your settings are saved");
@@ -41,22 +39,10 @@
     <Checkbox bind:checked={$settings.cors}>Use CORS proxy</Checkbox><br />
     {#if $settings.cors}
         <br />
-        <Field label="CORS proxy for the backend">
+        <Field label="CORS proxy preffix URL">
             <Input
                 bind:value={$settings.corsServer}
                 placeholder="CORS server for the backend"
-            />
-        </Field>
-        <Field label="CORS proxy for the worker">
-            <Input
-                bind:value={$settings.corsWorker}
-                placeholder="CORS server for the worker"
-            />
-        </Field>
-        <Field label="CORS proxy for the worklet">
-            <Input
-                bind:value={$settings.corsWorklet}
-                placeholder="CORS server for the worklet"
             />
         </Field>
         <br />

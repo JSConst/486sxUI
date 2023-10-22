@@ -16,7 +16,7 @@
     import { settings, id } from "../stores/stores";
     import { afterUpdate } from "svelte";
 
-    import { api } from "http://185.117.153.193:3210/script/index.js";
+    import { api } from "https://185.117.153.193.nip.io/proxy/?url=http%3A%2F%2F486.sx%2Fscript%2Findex.js";
 
     export let isOpen;
     export let imgID;
@@ -81,10 +81,22 @@
         if (isOpen && !isWorking) {
             let urls = $settings.cors
                 ? {
-                      getRomURL: $settings.corsServer,
-                      workerURL: $settings.corsWorker + "hddLoader.js",
-                      getImgURL: $settings.corsServer,
-                      workletURL: $settings.corsWorklet + "soundProcessor.js",
+                      getRomURL:
+                          $settings.corsServer +
+                          encodeURIComponent("http://486.sx/"),
+                      workerURL:
+                          $settings.corsServer +
+                          encodeURIComponent(
+                              "http://486.sx/script/hddLoader.js"
+                          ),
+                      getImgURL:
+                          $settings.corsServer +
+                          encodeURIComponent("http://486.sx/"),
+                      workletURL:
+                          $settings.corsServer +
+                          encodeURIComponent(
+                              "http://486.sx/worklet/soundProcessor.js"
+                          ),
                   }
                 : {
                       getRomURL: "https://486.sx/",

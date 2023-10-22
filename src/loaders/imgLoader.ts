@@ -1,7 +1,11 @@
 import type { ImgListElem } from "types.imgLoader";
 
 export const isImgLoaded = new Promise<ImgListElem[]>((resolve) => {
-    fetch("http://185.117.153.193:3210/getList.php?list=list")
+    fetch(
+        `https://185.117.153.193.nip.io/proxy/?url=${encodeURIComponent(
+            "http://486.sx/getList.php?list=list"
+        )}`
+    )
         .then((response) => {
             if (!response.ok) {
                 return "Network error. Please try to attempt later.";

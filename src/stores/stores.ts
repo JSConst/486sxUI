@@ -3,9 +3,7 @@ import { writable } from "svelte/store";
 export const settings = writable({
     ctrls: false,
     cors: true,
-    corsServer: "http://185.117.153.193:3210/",
-    corsWorker: "http://185.117.153.193:3210/script/",
-    corsWorklet: "http://185.117.153.193:3210/worklet/",
+    corsServer: "https://185.117.153.193.nip.io/proxy/?url=",
     nModem: false,
     nMServer: "wss://185.117.153.193.nip.io",
 });

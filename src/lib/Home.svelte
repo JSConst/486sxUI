@@ -1,5 +1,6 @@
 <script lang="ts">
     import { Container, Tag } from "svelte-chota";
+    import mainPic from "../assets/pic/table.jpg";
 </script>
 
 <Container>
@@ -15,7 +16,7 @@
         you will too. Welcome to the world without bots, total surveillance and
         neural networks!
     </p>
-    <img alt="main pic" src="/src/assets/pic/table.jpg" />
+    <img alt="Old computer in the table" src={mainPic} />
     <h3>Something about virtual characteristics (typical for that time)</h3>
     <div style="text-align:center">
         <Tag style="color: var(--color-grey)">CPU: Intel 80487SX</Tag>

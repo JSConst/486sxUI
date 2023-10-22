@@ -216,12 +216,14 @@
                     id : btoa("qwerty")
                 };
 
+    let corsPref = "https://api.allorigins.win/raw?url=";
+
     // list of required URLs
     const url = {											    
-                    getRomURL : "https://api.allorigins.win/raw?url=https://486.sx/",
-                    workerURL : "https://api.allorigins.win/raw?url=https://486.sx/script/hddLoader.js",
-                    getImgURL : "https://api.allorigins.win/raw?url=https://486.sx/",
-                    workletURL : "https://api.allorigins.win/raw?url=https://486.sx/worklet/soundProcessor.js"
+                    getRomURL : \`\${corsPref}\${encodeURIComponent("https://486.sx/")}\`,
+                    workerURL : \`\${corsPref}\${encodeURIComponent("https://486.sx/script/hddLoader.js")}\`,
+                    getImgURL : \`\${corsPref}\${encodeURIComponent("https://486.sx/")}\`,
+                    workletURL : \`\${corsPref}\${encodeURIComponent(https://486.sx/worklet/soundProcessor.js)}\`"
                 }
 
 `}
