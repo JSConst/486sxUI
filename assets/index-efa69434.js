@@ -142,9 +142,9 @@ var Un=Object.defineProperty;var Dn=(n,e,t)=>e in n?Un(n,e,{enumerable:!0,config
         of such an object is shown below:`,Se=C(),Ve=w("pre"),Ve.textContent=`
     // null modem parameters
     const nmp = {
-                    srv : "server.io",               // null modem backend server
-                    id : btoa("qwerty")              // "qwerty" is the session ID
-                };
+        srv : "server.io",               // null modem backend server
+        id : btoa("qwerty")              // "qwerty" is the session ID
+    };
 
 
 `,Je=C(),Qe=w("p"),Qe.textContent=`Two emulators initialized with the same ID will be connected to each
