@@ -166,6 +166,7 @@ var Un=Object.defineProperty;var Dn=(n,e,t)=>e in n?Un(n,e,{enumerable:!0,config
         id : btoa("qwerty")
     };
 
+    // CORS proxy server destination URL preffix
     let corsPref = "https://api.allorigins.win/raw?url=";
 
     // list of required URLs
