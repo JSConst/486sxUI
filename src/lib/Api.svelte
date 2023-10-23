@@ -54,12 +54,12 @@
     // virtual screen for emulator
     const scr = document.querySelector("canvas");
     // list of required URLs
-    const url = { 
-                    getRomURL : "https://486.sx/",                  // URL for BIOS image downloader
-                    workerURL : "script/hddLoader.js",              // URL for WebWorker that loads HDD data
-                    getImgURL : "https://486.sx/", 		    // URL for HDD image downloader
-                    workletURL : "../worklet/soundProcessor.js"     // URL for AudioWorklet that plays audio
-                }
+    const url = {   							    
+        getRomURL : "https://486.sx/",                          // URL for BIOS image downloader
+        workerURL : "https://486.sx/script/hddLoader.js",       // URL for WebWorker that loads HDD data
+        getImgURL : "https://486.sx/https://486.sx/",           // URL for HDD image downloader
+        workletURL : "https://486.sx/worklet/soundProcessor.js" // URL for AudioWorklet that plays audio
+    }
     // got the emulator object
     const emu = api(img, npm, scr, url);
 
@@ -67,8 +67,9 @@
 </pre>
     <p>The <b>emulator object</b> contains methods that allow you to:</p>
     <ul>
-        <li>Launch the emulator [ <b>.pc()</b> method ]</li>
-        <li>Display an image on a virtual screen [ <b>.svga()</b> method ]</li>
+        <li>Launch the emulator [ <b>.run()</b> method ]</li>
+        <li>Display an image on a virtual screen [ <b>.show()</b> method ]</li>
+        <li>Terminate the emulator [ <b>.stop()</b> method ]</li>
         <li>Add on-screen control [ using the <b>.ctrls</b> property ]</li>
     </ul>
     <p>The process of starting the emulator looks like this:</p>
@@ -78,12 +79,12 @@
     for (let key in emu.ctrls.screenCtrls) {
         scr.addEventListener(key, emu.ctrls.screenCtrls[key]);
     }
-    // start the emulator (can be stopped using the return value and clearInterval method)
-    const stopPC = emu.pc();
+    // start the emulator
+    emu.run();
     // start displaying on the virtual screen
-    emu.svga();
+    emu.show();
     // define a stop button for the emulator
-    document.getElementById("btnStop").addEventListener("click", () => clearInterval(stopPC));
+    document.getElementById("btnStop").addEventListener("click", emu.stop);
 
 `}
 </pre>
@@ -96,11 +97,11 @@
     <pre class="prettyprint">
 {`
     // define an external button "CTRL-ALT-DEL" for the emulator
-    document.getElementById("btnCAD").addEventListener("click", () => emu.ctrls.screenKeyCtrls.cadPress());
+    document.getElementById("btnCAD").addEventListener("click", emu.ctrls.screenKeyCtrls.cadPress);
     // define an external button "ESC" for the emulator
-    document.getElementById("btnESC").addEventListener("click", () => emu.ctrls.screenKeyCtrls.escPress());
+    document.getElementById("btnESC").addEventListener("click", emu.ctrls.screenKeyCtrls.escPress);
     // define an input field of any character for the emulator
-    document.querySelector("input").addEventListener("keyup", e => emu.ctrls.screenKeyCtrls.keyPress(e.keyCode));
+    document.querySelector("input").addEventListener("keyup", emu.ctrls.screenKeyCtrls.keyPress);
     // define a mouse movement handler for touch screens
     scr.addEventListener("touchmove", emu.ctrls.screenMouseCtrls.touchmove);
 
@@ -182,9 +183,9 @@
 {`
     // null modem parameters
     const nmp = {
-                    srv : "server.io",               // null modem backend server
-                    id : btoa("qwerty")              // "qwerty" is the session ID
-                };
+        srv : "server.io",               // null modem backend server
+        id : btoa("qwerty")              // "qwerty" is the session ID
+    };
 
 `}
 </pre>
@@ -212,19 +213,20 @@
 
     // null modem parameters
     const nmp = {
-                    srv : "https://api.allorigins.win/raw?url=https://server.io",
-                    id : btoa("qwerty")
-                };
+        srv : "https://api.allorigins.win/raw?url=https://server.io",
+        id : btoa("qwerty")
+    };
 
+    // CORS proxy server destination URL preffix
     let corsPref = "https://api.allorigins.win/raw?url=";
 
     // list of required URLs
     const url = {											    
-                    getRomURL : \`\${corsPref}\${encodeURIComponent("https://486.sx/")}\`,
-                    workerURL : \`\${corsPref}\${encodeURIComponent("https://486.sx/script/hddLoader.js")}\`,
-                    getImgURL : \`\${corsPref}\${encodeURIComponent("https://486.sx/")}\`,
-                    workletURL : \`\${corsPref}\${encodeURIComponent(https://486.sx/worklet/soundProcessor.js)}\`"
-                }
+        getRomURL : \`\${corsPref}\${encodeURIComponent("https://486.sx/")}\`,
+        workerURL : \`\${corsPref}\${encodeURIComponent("https://486.sx/script/hddLoader.js")}\`,
+        getImgURL : \`\${corsPref}\${encodeURIComponent("https://486.sx/")}\`,
+        workletURL : \`\${corsPref}\${encodeURIComponent(https://486.sx/worklet/soundProcessor.js)}\`"
+    }
 
 `}
 </pre>

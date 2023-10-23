@@ -14,17 +14,15 @@
     } from "@mdi/js";
     import { Card, Field, Button, Input, Modal, Row, Col } from "svelte-chota";
     import { settings, id } from "../stores/stores";
-    import { afterUpdate } from "svelte";
+    import { afterUpdate, beforeUpdate } from "svelte";
 
     import { api } from "https://185.117.153.193.nip.io/proxy/?url=http%3A%2F%2F486.sx%2Fscript%2Findex.js";
 
     export let isOpen;
     export let imgID;
 
-    let stopPC;
     let isWorking = false;
 
-    let btnCAD = null;
     let mPAD = null;
 
     let ctrlActions = {
@@ -56,16 +54,7 @@
         },
     };
 
-    let nModemStop;
-
-    const keyPress = (e) => {
-        ctrlActions.keyPress(e.keyCode);
-        e.currentTarget.value = "";
-    };
-
-    const pLock = () => {
-        mPAD.dispatchEvent(new MouseEvent("mouseup", { button: 1 }));
-    };
+    let vmStop;
 
     const lockChange = () => {
         !document.pointerLockElement &&
@@ -149,7 +138,7 @@
 
                 ctrlActions = vm.ctrls.screenKeyCtrls;
                 touchActions = vm.ctrls.screenMouseCtrls;
-                nModemStop = vm.ctrls.nModemStop;
+                vmStop = vm.stop;
 
                 for (let key in vm.ctrls.screenCtrls) {
                     mPAD.addEventListener(key, vm.ctrls.screenCtrls[key]);
@@ -157,11 +146,17 @@
                 mPAD.addEventListener("touchmove", touchActions.touchmove);
                 document.addEventListener("pointerlockchange", lockChange);
 
-                stopPC = vm.pc();
-                vm.svga();
+                vm.run();
+                vm.show();
             });
-
             isWorking = true;
+        }
+    });
+
+    beforeUpdate(() => {
+        if (isWorking && !isOpen) {
+            vmStop();
+            isWorking = false;
         }
     });
 </script>
@@ -174,16 +169,12 @@
                     success
                     on:click={ctrlActions.cadPress}
                     icon={mdilRefresh}
-                    bind:this={btnCAD}
                 />
                 <Input value={netID} readonly />
                 <Button
                     error
                     on:click={() =>
-                        clearInterval(stopPC) ||
-                        (isOpen = false) ||
-                        (isWorking = false) ||
-                        nModemStop()}
+                        vmStop() || (isOpen = false) || (isWorking = false)}
                     icon={mdilPower}
                 />
             </Field>
@@ -227,7 +218,10 @@
                     >
                     <Col size="3"
                         ><Button
-                            on:click={pLock}
+                            on:click={() =>
+                                mPAD.dispatchEvent(
+                                    new MouseEvent("mouseup", { button: 1 })
+                                )}
                             primary
                             style="font-size:14px;width:185px;height:35px"
                             >Take control</Button
@@ -265,7 +259,9 @@
                     >
                     <Col
                         ><Input
-                            on:keyup={keyPress}
+                            on:keyup={(e) =>
+                                ctrlActions.keyPress(e) ||
+                                (e.currentTarget.value = "")}
                             style="width:72px"
                             value=""
                         /></Col
