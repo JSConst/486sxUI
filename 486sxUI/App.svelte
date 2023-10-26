@@ -6,8 +6,9 @@
     import Settings from "./lib/Settings.svelte";
     import Api from "./lib/Api.svelte";
     import Page_404 from "./lib/Page_404.svelte";
-    import { isSettingsLoaded } from "./stores/stores";
+    import { isSettingsLoaded, deferredPrompt } from "./stores/Stores.svelte";
     import { Container } from "svelte-chota";
+    import PWA from "./lib/PWA.svelte";
 
     export let routes = {
         "/": [Home],
@@ -28,7 +29,16 @@
             style: "float:right",
         },
     ];
+
+    window.addEventListener("beforeinstallprompt", function (evt) {
+        // Prevent Chrome 67 and earlier from automatically showing the prompt
+        evt.preventDefault();
+        // Stash the event so it can be triggered later.
+        $deferredPrompt = evt;
+    });
 </script>
+
+<PWA />
 
 <Container>
     {#await isSettingsLoaded}

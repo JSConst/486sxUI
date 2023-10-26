@@ -8,8 +8,8 @@
         "build": "vite build --base=/486sxUI/",
         "preview": "vite preview",
         "check": "svelte-check --tsconfig ./tsconfig.json",
-        "format": "clear && eslint --ext .ts,.svelte src --fix && prettier --write  --plugin prettier-plugin-svelte .",
-        "deploy": "gh-pages -d dist"
+        "format": "clear && prettier --write  --plugin prettier-plugin-svelte . && eslint --ext .ts,.svelte 486sxUI --fix && echo All Right!",
+        "deploy": "copyfiles -f ./486sxUI/assets/* ./dist/assets && gh-pages -d dist"
     },
     "devDependencies": {
         "@mdi/js": "^7.3.67",
@@ -19,6 +19,7 @@
         "@typescript-eslint/eslint-plugin": "^6.8.0",
         "@typescript-eslint/parser": "^6.8.0",
         "chota": "^0.9.2",
+        "copyfiles": "^2.4.1",
         "eslint": "^8.51.0",
         "eslint-plugin-prettier": "^5.0.1",
         "eslint-plugin-svelte": "^2.34.0",
@@ -31,6 +32,8 @@
         "svelte-chota": "^1.8.6",
         "tslib": "^2.6.1",
         "typescript": "^5.0.2",
-        "vite": "^4.4.8"
+        "vite": "^4.4.8",
+        "vite-plugin-pwa": "^0.16.5",
+        "workbox-build": "^7.0.0"
     }
 }

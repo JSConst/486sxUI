@@ -1,7 +1,7 @@
 <script lang="ts">
     import { mdilPlay } from "@mdi/light-js";
     import { Container, Details, Field, Button, Input } from "svelte-chota";
-    import { isImgLoaded } from "../loaders/imgLoader";
+    import { isImgLoaded } from "../loaders/ImgLoader.svelte";
     import PC from "./PC.svelte";
 
     let imgID = "";

@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { mdilContentSave } from "@mdi/light-js";
+    import { mdilContentSave, mdilPlus } from "@mdi/light-js";
     import { Container, Field, Input, Checkbox, Button } from "svelte-chota";
-    import { settings, id } from "../stores/stores";
+    import { settings, id, deferredPrompt } from "../stores/Stores.svelte";
 
     let localID = $id;
 
@@ -28,12 +28,41 @@
         );
         alert("Your settings are saved");
     };
+
+    let btnAddVisible = "display:block";
+
+    const addClick = () => {
+        // hide our user interface that shows our A2HS button
+        btnAddVisible = "display:none";
+        // Show the prompt
+        let defPr = $deferredPrompt;
+        defPr.prompt();
+        // Wait for the user to respond to the prompt
+        defPr.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === "accepted") {
+                console.log("User accepted the A2HS prompt");
+            } else {
+                console.log("User dismissed the A2HS prompt");
+            }
+            $deferredPrompt = null;
+        });
+    };
 </script>
 
 <Container>
     <br />
-    <Button outline icon={mdilContentSave} on:click={saveClick}>Save</Button><br
-    /><br />
+    <Button outline icon={mdilContentSave} on:click={saveClick}
+        >Save settings</Button
+    >
+    {#if $deferredPrompt}
+        <Button
+            outline
+            icon={mdilPlus}
+            on:click={addClick}
+            style="${btnAddVisible}">Install local</Button
+        >
+    {/if}
+    <br />
     <Checkbox bind:checked={$settings.ctrls}>Use on-screen controls</Checkbox
     ><br />
     <Checkbox bind:checked={$settings.cors}>Use CORS proxy</Checkbox><br />

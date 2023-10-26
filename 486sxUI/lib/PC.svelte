@@ -13,7 +13,7 @@
         mdiMouse,
     } from "@mdi/js";
     import { Card, Field, Button, Input, Modal, Row, Col } from "svelte-chota";
-    import { settings, id } from "../stores/stores";
+    import { settings, id } from "../stores/Stores.svelte";
     import { afterUpdate, beforeUpdate } from "svelte";
 
     import { api } from "https://185.117.153.193.nip.io/proxy/?url=http%3A%2F%2F486.sx%2Fscript%2Findex.js";
@@ -57,11 +57,13 @@
     let vmStop;
 
     const lockChange = () => {
-        !document.pointerLockElement &&
-            document.activeElement === document.querySelector("canvas") &&
-            mPAD.dispatchEvent(new MouseEvent("mouseup", { button: 1 })) &&
-            ctrlActions.escPress &&
-            ctrlActions.escPress();
+        if (
+            !document.pointerLockElement &&
+            document.activeElement === document.querySelector("canvas")
+        ) {
+            mPAD.dispatchEvent(new MouseEvent("mouseup", { button: 1 }));
+            ctrlActions.escPress && ctrlActions.escPress();
+        }
     };
 
     let netID = "Null modem cable do not plugged in";
@@ -70,29 +72,29 @@
         if (isOpen && !isWorking) {
             let urls = $settings.cors
                 ? {
-                      getRomURL:
+                    getRomURL:
                           $settings.corsServer +
                           encodeURIComponent("http://486.sx/"),
-                      workerURL:
+                    workerURL:
                           $settings.corsServer +
                           encodeURIComponent(
                               "http://486.sx/script/hddLoader.js"
                           ),
-                      getImgURL:
+                    getImgURL:
                           $settings.corsServer +
                           encodeURIComponent("http://486.sx/"),
-                      workletURL:
+                    workletURL:
                           $settings.corsServer +
                           encodeURIComponent(
                               "http://486.sx/worklet/soundProcessor.js"
                           ),
-                  }
+                }
                 : {
-                      getRomURL: "https://486.sx/",
-                      workerURL: "script/hddLoader.js",
-                      getImgURL: "https://486.sx/",
-                      workletURL: "../worklet/soundProcessor.js",
-                  };
+                    getRomURL: "https://486.sx/",
+                    workerURL: "script/hddLoader.js",
+                    getImgURL: "https://486.sx/",
+                    workletURL: "../worklet/soundProcessor.js",
+                };
 
             new Promise((resolve) => {
                 netID = "Null modem cable do not plugged in";
@@ -193,17 +195,6 @@
                 <Row>
                     <Col
                         ><Button
-                            dark
-                            style="font-size:14px;width:75px"
-                            icon={mdiMouse}
-                            on:touchstart={touchActions.lb.touchstart}
-                            on:touchend={touchActions.lb.touchend}
-                            on:touchcancel={touchActions.lb.touchcancel}
-                            >L</Button
-                        ></Col
-                    >
-                    <Col
-                        ><Button
                             on:click={ctrlActions.delPress}
                             secondary
                             style="font-size:14px">Del</Button
@@ -236,6 +227,21 @@
                         /></Col
                     >
                     <Col></Col>
+                    <Col>
+                        <Button
+                            default
+                            icon={mdiMouse}
+                            on:click={() =>
+                                touchActions.lb.touchstart(
+                                    new MouseEvent("mouseup", { button: 0 })
+                                ) ||
+                                setTimeout(
+                                    touchActions.lb.touchend,
+                                    100,
+                                    new MouseEvent("mouseup", { button: 0 })
+                                )}
+                        />
+                    </Col>
                     <Col
                         ><Button
                             on:click={ctrlActions.upPress}
@@ -243,20 +249,23 @@
                             icon={mdilChevronUp}
                         /></Col
                     >
-                    <Col></Col>
+                    <Col>
+                        <Button
+                            default
+                            icon={mdiMouse}
+                            on:click={() =>
+                                touchActions.rb.touchstart(
+                                    new MouseEvent("mouseup", { button: 2 })
+                                ) ||
+                                setTimeout(
+                                    touchActions.rb.touchend,
+                                    100,
+                                    new MouseEvent("mouseup", { button: 2 })
+                                )}
+                        />
+                    </Col>
                 </Row>
                 <Row>
-                    <Col
-                        ><Button
-                            dark
-                            style="font-size:14px;width:75px"
-                            icon={mdiMouse}
-                            on:touchstart={touchActions.rb.touchstart}
-                            on:touchend={touchActions.rb.touchend}
-                            on:touchcancel={touchActions.rb.touchcancel}
-                            >R</Button
-                        ></Col
-                    >
                     <Col
                         ><Input
                             on:keyup={(e) =>
@@ -288,6 +297,7 @@
                             icon={mdiSubdirectoryArrowLeft}>Enter</Button
                         ></Col
                     >
+                    <Col></Col>
                     <Col
                         ><Button
                             on:click={ctrlActions.leftPress}

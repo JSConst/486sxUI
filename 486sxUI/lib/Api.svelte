@@ -1,8 +1,9 @@
 <script lang="ts">
     import { Container } from "svelte-chota";
-
+    import { onMount } from "svelte";
     import { prettify } from "../3rd-party/run_prettify.js";
-    prettify();
+
+    onMount(() => prettify());
 </script>
 
 <Container>
