@@ -97,7 +97,7 @@ var Kn=Object.defineProperty;var Fn=(n,e,t)=>e in n?Kn(n,e,{enumerable:!0,config
 `,J=C(),X=w("p"),X.innerHTML=`The <b>.ctrls</b> object contains handlers for various virtual machine events,
         which are grouped as follows:`,K=C(),Se=w("ul"),Se.innerHTML=`<li>On-screen keyboard button handlers [ <b>.screenKeyCtrls</b> property
             ]</li> <li>Mouse handlers for touch screens [ <b>.screenMouseCtrls</b> property
-            ]</li> <li>Emulator keyboard and mouse handlers[ <b>.screenCtrls</b> property ]</li> <li>Method for stopping a null modem [ <b>.nModemStop()</b> method ]</li>`,Le=C(),re=w("p"),re.textContent=`All possible handlers are listed below (use the emu object obtained
+            ]</li> <li>Emulator keyboard and mouse handlers[ <b>.screenCtrls</b> property ]</li>`,Le=C(),re=w("p"),re.textContent=`All possible handlers are listed below (use the emu object obtained
         earlier):`,Fe=C(),ke=w("pre"),ke.textContent=`
     // for on-screen keyboard
     emu.ctrls.screenKeyCtrls.cadPress();            // pressing three keys "CTRL-ALT-DEL"
@@ -130,9 +130,6 @@ var Kn=Object.defineProperty;var Fn=(n,e,t)=>e in n?Kn(n,e,{enumerable:!0,config
     emu.ctrls.screenCtrls.mousedown(evt);
     emu.ctrls.screenCtrls.mouseclick(evt); 
     emu.ctrls.screenCtrls.pointerlockchange(evt);
-
-    // null modem stop method, called when the emulator is turned off
-    emu.ctrls.nModemStop(); 
 
 
 `,me=C(),T=w("p"),T.innerHTML=`A few words should be said about the null modem connection. If you plan
