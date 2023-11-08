@@ -63,6 +63,7 @@
         >
     {/if}
     <br />
+    <br />
     <Checkbox bind:checked={$settings.ctrls}>Use on-screen controls</Checkbox
     ><br />
     <Checkbox bind:checked={$settings.cors}>Use CORS proxy</Checkbox><br />

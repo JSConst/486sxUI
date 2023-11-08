@@ -10,25 +10,44 @@
     import { Container } from "svelte-chota";
     import PWA from "./lib/PWA.svelte";
 
-    export let routes = {
-        "/": [Home],
-        "/run": [Run],
-        "/settings": [Settings],
-        "/api": [Api],
-    };
+    let routes;
 
-    export let navBar = [
-        { url: "#/", link: "Home", size: "2", class: "nav-left", style: "" },
-        { url: "#/run", link: "Run", size: "1", class: "nav-left", style: "" },
-        { url: "#/api", link: "API", size: "1", class: "nav-left", style: "" },
-        {
-            url: "#/settings",
-            link: "Settings",
-            size: "2",
-            class: "nav-right",
-            style: "float:right",
-        },
-    ];
+    let navBar;
+    if (document.location.toString().match(/\?pwa/)) {
+        navBar = [
+            { url: "#/", link: "Run", class: "nav-left", style: "" },
+            {
+                url: "#/settings",
+                link: "Settings",
+                class: "nav-right",
+                style: "float:right",
+            },
+        ];
+
+        routes = {
+            "/": [Run],
+            "/settings": [Settings],
+        };
+    } else {
+        navBar = [
+            { url: "#/", link: "Home", class: "nav-left", style: "" },
+            { url: "#/run", link: "Run", class: "nav-left", style: "" },
+            { url: "#/api", link: "API", class: "nav-left", style: "" },
+            {
+                url: "#/settings",
+                link: "Settings",
+                class: "nav-right",
+                style: "float:right",
+            },
+        ];
+
+        routes = {
+            "/": [Home],
+            "/run": [Run],
+            "/settings": [Settings],
+            "/api": [Api],
+        };
+    }
 
     window.addEventListener("beforeinstallprompt", function (evt) {
         // Prevent Chrome 67 and earlier from automatically showing the prompt

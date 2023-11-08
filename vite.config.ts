@@ -24,7 +24,7 @@ export default defineConfig({
                 orientation: "any",
                 scope: "/486sxUI/",
                 short_name: "486.sx",
-                start_url: "/486sxUI/",
+                start_url: "/486sxUI/?pwa",
                 theme_color: "#ffffff",
                 categories: ["entertainment", "games", "utilities"],
                 icons: [

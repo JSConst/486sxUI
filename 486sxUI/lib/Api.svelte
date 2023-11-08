@@ -126,9 +126,6 @@
         <li>
             Emulator keyboard and mouse handlers[ <b>.screenCtrls</b> property ]
         </li>
-        <li>
-            Method for stopping a null modem [ <b>.nModemStop()</b> method ]
-        </li>
     </ul>
     <p>
         All possible handlers are listed below (use the emu object obtained
@@ -167,9 +164,6 @@
     emu.ctrls.screenCtrls.mousedown(evt);
     emu.ctrls.screenCtrls.mouseclick(evt); 
     emu.ctrls.screenCtrls.pointerlockchange(evt);
-
-    // null modem stop method, called when the emulator is turned off
-    emu.ctrls.nModemStop(); 
 
 `}
 </pre>
